@@ -142,6 +142,26 @@ mention = ["random_bytes", "CSRF"]
 cite_any_file = ["header.php"]
 
 [[projects]]
+name = "anyhow"
+source = "https://github.com/dtolnay/anyhow"
+language = "Rust"
+ref = "dd0c0a655a214add8fc986df34ea3823468fa4fb"  # verified through GitHub's commit API
+
+[[projects.cases]]
+id = "anyhow-narrow-pointer"
+command = "ask"
+question = "Comment anyhow::Error tient-il dans un seul mot mémoire alors qu'il peut contenir n'importe quelle erreur ?"
+mention = ["vtable"]
+cite_any_file = ["src/error.rs", "src/ptr.rs", "src/lib.rs"]
+
+[[projects.cases]]
+id = "anyhow-why-context"
+command = "why"
+target = "le trait Context"
+mention = ["with_context"]
+cite_any_file = ["src/context.rs", "src/lib.rs"]
+
+[[projects]]
 name = "go"
 source = "https://github.com/golang/go"
 language = "Go"

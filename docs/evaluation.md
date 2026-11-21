@@ -396,6 +396,16 @@ un CRUD en PHP natif sans `composer.json`, épinglé sur `3210e62`. Deux cas : `
   les deux réponses passent.
 - Le catalogue couvre désormais quatre langages : Python, JavaScript, Go et PHP.
 
+## Mesure 15 : un projet Rust, 21 novembre 2026
+
+Nouveau projet de référence `anyhow` (#163) : [`dtolnay/anyhow`](https://github.com/dtolnay/anyhow),
+épinglé sur `dd0c0a6` (935 commits). Deux cas : `anyhow-narrow-pointer` (`ask` : comment
+`anyhow::Error` tient dans un seul mot, ce qui demande de trouver la vtable manuelle de
+`src/error.rs`) et `anyhow-why-context` (`why` sur le trait `Context`). Deux passes : **4/4**,
+sans aucune retouche des attentes, qui ont été écrites d'après le code avant la première mesure.
+
+Le catalogue couvre désormais cinq langages : Python, JavaScript, Go, PHP et Rust.
+
 ## Ce qu'il reste à mesurer
 
 - **La correction des citations par le modèle**, désormais possible sur l'abonnement (#74) :

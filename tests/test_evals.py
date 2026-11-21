@@ -242,11 +242,11 @@ def test_valid_decision_records_cannot_hide_invalid_citations_in_the_synthesis(p
     assert "citations de la réponse" in failures(checks)
 
 
-def test_catalog_covers_four_languages_and_every_supported_command():
+def test_catalog_covers_five_languages_and_every_supported_command():
     specs = run.load_cases()
     cases = [case for spec in specs for case in spec["cases"]]
     assert len(cases) >= 12
-    assert {spec["language"] for spec in specs} >= {"Python", "JavaScript", "Go", "PHP"}
+    assert {spec["language"] for spec in specs} >= {"Python", "JavaScript", "Go", "PHP", "Rust"}
     assert {case["command"] for case in cases} == {"ask", "decisions", "why", "review"}
     assert any(spec.get("minimum_commits", 0) >= 10000 for spec in specs)
     assert any(INJECTION_MARKER in case.get("forbid", []) for case in cases)
