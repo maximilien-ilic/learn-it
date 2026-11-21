@@ -2,6 +2,7 @@
 # never the wording of an answer:
 #   mention          words the answer must contain (case-insensitive)
 #   cite_any_file    files of which at least one must be cited
+#   cite_file_groups named groups, each requiring a file-and-line citation
 #   cite_commit      subject (prefix) of a commit the answer must cite by sha
 #   marks_inference  nothing documents the reason: the answer must say it is inferred
 #   decisions        records `decisions` must produce, with their justification source
@@ -130,9 +131,15 @@ ref = "3210e62dcb495062e7acadb90e815eaf1b40b4c0"  # verified through GitHub's co
 [[projects.cases]]
 id = "formula1-security"
 command = "ask"
-question = "Ce CRUD est-il protégé contre l'injection SQL, le XSS et le CSRF ? Cite chaque endroit."
+question = """\
+Ce CRUD est-il protégé contre l'injection SQL, le XSS et le CSRF ? Cite les lignes du traitement \
+du formulaire, de l'échappement à l'affichage et de la génération du jeton."""
 mention = ["prepare", "htmlspecialchars", "random_bytes"]  # « jeton » en français : pas « token »
-cite_any_file = ["header.php", "details.php", "modifier.php", "formule1.php"]
+
+[projects.cases.cite_file_groups]
+"traitement du formulaire" = ["traitement_formule1.php"]
+XSS = ["details.php", "modifier.php", "formule1.php"]
+"génération du jeton" = ["header.php"]
 
 [[projects.cases]]
 id = "formula1-why-token"

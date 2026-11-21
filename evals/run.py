@@ -74,7 +74,12 @@ def validate_cases(specs: list[dict[str, Any]]) -> None:
                 raise ValueError(f"{case_id}: ask requires a question")
             if command == "why" and not case.get("target"):
                 raise ValueError(f"{case_id}: why requires a target")
-            for path in case.get("cite_any_file", []):
+            files = list(case.get("cite_any_file", []))
+            for group in case.get("cite_file_groups", {}).values():
+                if not group:
+                    raise ValueError(f"{case_id}: citation groups must contain at least one file")
+                files.extend(group)
+            for path in files:
                 if Path(path).is_absolute() or ".." in Path(path).parts:
                     raise ValueError(f"{case_id}: evidence must stay inside the reference project")
 

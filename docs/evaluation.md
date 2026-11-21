@@ -386,6 +386,10 @@ un CRUD en PHP natif sans `composer.json`, épinglé sur `3210e62`. Deux cas : `
 (`ask` sur l'injection SQL, le XSS et le CSRF) et `formula1-why-token` (`why` sur le jeton CSRF de
 `header.php`). Deux passes chacun : **4/4 avec la définition retenue**.
 
+- Le score de cette mesure utilise le barème d'origine, qui demandait une seule source pour
+  `formula1-security`. Le catalogue exige désormais des citations avec lignes pour le traitement
+  du formulaire, l'échappement à l'affichage et la génération du jeton. Ce barème reste à mesurer.
+
 - **Une correction de la définition, faite avant toute mesure de référence.** La première version
   de `formula1-security` exigeait le mot « token ». La première réponse a échoué sur ce seul
   point. Elle était pourtant juste : requêtes préparées, `htmlspecialchars`, jeton de session

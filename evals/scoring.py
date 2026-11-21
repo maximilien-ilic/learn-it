@@ -65,6 +65,10 @@ def score_answer(
             c.path for c in evidence.find_citations(answer) if c.path
         }
         checks.append(Check(f"cite {' ou '.join(files)}", any(f in cited for f in files)))
+    if groups := case.get("cite_file_groups"):
+        cited = {c.path for c in evidence.find_citations(answer) if c.path and c.start}
+        for label, files in groups.items():
+            checks.append(Check(f"cite la source {label}", not cited.isdisjoint(files)))
     if subject := case.get("cite_commit"):
         cited = [c.sha for c in evidence.find_citations(answer) if c.sha]
         checks.append(Check(f"cite le commit « {subject} »", _cites_commit(root, subject, cited)))

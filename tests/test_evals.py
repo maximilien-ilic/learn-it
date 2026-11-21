@@ -99,6 +99,23 @@ def test_an_inference_presented_as_fact_fails(project):
     assert failures(checks) == {"signale ce qui est déduit"}
 
 
+def test_php_security_requires_sources_for_all_protections(tmp_path):
+    spec = next(spec for spec in run.load_cases() if spec["name"] == "formula1")
+    case = next(case for case in spec["cases"] if case["id"] == "formula1-security")
+    for filename in ("header.php", "details.php", "traitement_formule1.php"):
+        (tmp_path / filename).write_text("<?php\n", encoding="utf-8")
+
+    answer = "Le code utilise prepare, htmlspecialchars et random_bytes dans `header.php:1`."
+    assert failures(score_answer(answer, case, tmp_path)) == {
+        "cite la source XSS", "cite la source traitement du formulaire",
+    }
+    assert failures(score_answer(answer + " `details.php`.", case, tmp_path)) == {
+        "cite la source XSS", "cite la source traitement du formulaire",
+    }
+    answer += " Voir aussi `details.php:1` et `traitement_formule1.php:1`."
+    assert not failures(score_answer(answer, case, tmp_path))
+
+
 def test_decisions_must_keep_documented_and_inferred_apart(project):
     decisions = decisions_for(project.root)
     decisions[1] = decisions[1].model_copy(update={"rationale_source": "documented"})
