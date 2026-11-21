@@ -12,7 +12,7 @@ L'archéologie de ton code : retrouver pourquoi un projet est construit comme il
 ![Issues](https://img.shields.io/github/issues/maximilien-ilic/codearcheo?color=green)
 ![PyPI](https://img.shields.io/pypi/v/codearcheo?color=blue)
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)
-![Tests](https://img.shields.io/badge/tests-591_passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-616_passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 *Anciennement `learn-it`, renommé le 20 novembre 2026.*
@@ -233,25 +233,27 @@ Pour aller plus loin : [suivi des décisions](docs/decision-workflow.md),
 - [x] Décisions exportées en ADR, revue avec recommandations et tickets
 - [x] Moteur sur l'abonnement Claude, sans clé API
 - [x] Serveur MCP pour d'autres agents
-- [x] Évaluation sur des projets réels (Express, golang/go, itsdangerous…)
+- [x] Évaluation sur des projets réels en Python, JavaScript, Go et PHP
 - [x] Revue automatique de chaque commit, par Codex et par Claude côté serveur
 - [x] Version 0.2.0 publiée sur PyPI
-- [ ] Repérer d'autres stacks sans manifeste, comme PHP aujourd'hui
-- [ ] Mesurer et améliorer les réponses sur d'autres langages et des dépôts plus variés
+- [x] Stack d'un projet sans manifeste : PHP, Python (`import`) et JavaScript (`require`, `import`)
+- [x] Évaluation qui s'arrête proprement sur une coupure de quota et indique comment reprendre
+- [ ] Étendre l'évaluation à d'autres langages (Rust, Java…) et à des dépôts plus variés
 
 Le détail des jalons est dans [docs/roadmap.md](docs/roadmap.md).
 
 ### Où en est le projet
 
-*État au 20 novembre 2026.*
+*État au 21 novembre 2026.*
 
 - **La version 0.2.0** est publiée sur [PyPI](https://pypi.org/project/codearcheo/) et
   [GitHub](https://github.com/maximilien-ilic/codearcheo/releases/tag/v0.2.0).
-- **Les tests.** 591 tests déterministes tournent sous Python 3.11 et 3.14 à chaque PR.
-- **La qualité mesurée.** Depuis la mesure 10, sept évaluations complètes sur l'abonnement
-  donnent 95 réponses réussies sur 98. Les trois échecs : deux noms de fichier ambigus, que
-  codearcheo refuse de deviner, et une réponse qui dit qu'un choix n'est pas documenté sans
-  employer le mot attendu ([docs/evaluation.md](docs/evaluation.md)).
+- **Les tests.** 616 tests déterministes tournent sous Python 3.11 et 3.14 à chaque PR.
+- **La qualité mesurée.** Depuis la mesure 10, neuf évaluations complètes sur l'abonnement
+  donnent 123 réponses réussies sur 126. Les trois échecs datent d'avant les derniers
+  changements : deux noms de fichier ambigus, que codearcheo refuse de deviner, et une raison
+  déduite annoncée sans la formule demandée, que le prompt impose désormais (mesure 13 : 28/28).
+  Le nouveau projet PHP réussit 4 cas sur 4 ([docs/evaluation.md](docs/evaluation.md)).
 - **Le coût.** L'effort `medium`, par défaut, coûte 32 % de moins que `high` sans perte mesurée.
   Une évaluation complète (14 cas) prend environ 13 min.
 - **Les revues.** Chaque commit sur `master` est relu par Codex et par Claude côté serveur
